@@ -10,7 +10,7 @@ router.post('/register', checkUsernameFree, checkPasswordLength, (req , res, nex
   const passwordHash = bcrypt.hashSync(password , 8)
 
   Users.add({ username , password: passwordHash })
-  .then((newUser) => res.status(200).json(newUser))
+  .then(newUser => res.status(200).json(newUser))
   .catch(next)
 })
 
@@ -71,7 +71,6 @@ router.post('/login', checkUsernameExists, (req, res, next) => {
 
   router.get('/logout' , (req , res) => {
     if (req.session && req.session.user) {
-      const { username } = req.session.user
 
       req.session.destroy(err => {
         if(err) {
